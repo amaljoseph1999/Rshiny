@@ -11,29 +11,29 @@ library(shiny)
 library(shinydashboard)
 library(DT)
 
-# Define UI for application that draws a histogram
-ui <- dashboardPage(skin='red',
-                    dashboardHeader(title='My dashboard'
-                                    ),
-                    dashboardSidebar(selectInput("var", "Country:",
-                                                 c(ca$Country.Region)) ),
-                    dashboardBody(distPlot)
 
-   
-)
+source("UI/ui_about.R",local = TRUE)
 
-# Define server logic required to draw a histogram
+ui<-fluidPage(
+    
+    title='hshdh',
+    tags$head("hai"),
+    navbarPage(
+        title = "Covid_19",style="padding-left:10px"),
+    collapsible=TRUE,
+    fluid=TRUE,
+    tabPanel("About",page_about,value = "page-about")
+    
+ )
+
 server <- function(input, output) {
-  output$distPlot <- renderPlot({
-  ca <- read.csv(file = 'C:/Users/ArulSamy/Desktop/PP1.csv')
-   a=input$var
-  
-     plot(ca$ConfirmedCases[ca$Country.Region==a],ca$temp[ca$Country.Region==a])
-     a2 <- data.frame(Inc =ca$ConfirmedCases[ca$Country.Region==a], Spend = ca$temp[ca$Country.Region==a])
-     abline(lm(Spend~Inc,data=a2))
-   })
-  
+    
+    
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+
+
+
